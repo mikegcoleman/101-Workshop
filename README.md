@@ -10,14 +10,14 @@ In this section you will clone the GitHub repository for our demo application, a
   
 * In the terminal session clone the lab repo: 
 
-    ```
+    ```bash
     git clone https://github.com/mikegcoleman/101-Workshop.git
     ```
 
 
 * Change into the Lab-1 directory
   
-   ```
+   ```bash
    cd 101-Workshop/Lab-1` 
    ```
      
@@ -27,13 +27,13 @@ In this section you will clone the GitHub repository for our demo application, a
 
 * Otherwise use NPM to install the app dependencies and start the application: 
 
-    ```
+    ```bash
     npm install  
     npm run
     ```
 * If you see a message “Backend is running on Port 5000” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
 
-    ```
+    ```bash
     curl http://localhost:5000/api/entries
     ```
 
@@ -53,7 +53,9 @@ Feel free to consult the slides and/or other resources to complete this section.
 
 * Once you have a Dockerfile you believe is working you will need to build and run it to test it out. Use the `docker build `command in a terminal window to create the container image.  The following command tells docker to build an image named ‘api’ and tag it as ‘v1’. 
 
-	`docker build -t api:v1 .` 
+    ```
+    docker build -t api:v1 .
+    ``` 
  
 * The first line of output should indicate that the build finished: 
  
@@ -63,7 +65,9 @@ Feel free to consult the slides and/or other resources to complete this section.
 
 * With your application image built, you can test it out by running the following command: 
 
-	`docker run -d -p 5000:5000 --name api api:v1`
+    ```
+    docker run -d -p 5000:5000 --name api api:v1
+    ```
  
 * If you issue the `docker ps` command you should see your running container. 
 
@@ -297,7 +301,9 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 
 * Create a volume to hold the database data
 
-	`docker volume create db_data`
+    ```
+    docker volume create db_data
+    ```
 
 * Restart the containers, this time using a volume w/ the database
 
@@ -332,8 +338,10 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
     ```
 
 * Verify the data was written
-  
-	`curl http://localhost:5000/api/entries`
+
+   ```
+   curl http://localhost:5000/api/entries
+   ```
 
 * Stop and restart the containers
 
@@ -363,7 +371,9 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 
 * Verify the data persisted across the restart this time
 
-	`curl http://localhost:5000/api/entries`
+   ```
+   curl http://localhost:5000/api/entries
+   ```
 
 * Remove the application containers
 
@@ -372,6 +382,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
     docker rm -f db
 
     ```
+
 ## Lab 3 
 
 
@@ -383,10 +394,15 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 
 * Move into the Lab 3 directory
 
-    `cd ../Lab-3`
+    ```
+    cd ../Lab-3
+    ```
+
 * Lab 3 only has the `index.js` and `package.json` files. You will use `docker init` to create the necessary Docker resources. 
 
-	`docker init`
+   ```
+   docker init
+   ```
 
 
 
@@ -403,7 +419,9 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 
 * Docker suggests running `docker compose up` at this point
 
-	`docker compose up --build`
+    ```
+    docker compose up --build
+    ```
 
 
 * But, as we saw previously our API needs a database to run. Luckily `docker init` has done a lot of work on that front as well. 
@@ -467,11 +485,11 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 
 * Save the file, and bring the application up again using Docker Compose. There is no need to rebuild the API container, but you do want the containers to start in the background hence the removal of `--build` and the inclusion of `-d`
 
-    `docker compose up -d`
+   ```
+   docker compose up -d
+   ```
 
-
-
-    If you move into the containers area in the Docker Desktop GUI, you can see our Compose application there. 
+* If you move into the containers area in the Docker Desktop GUI, you can see our Compose application there. 
 
 * Add an entry to the database
 
@@ -488,36 +506,36 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 
 
 * Stop the application
-
-	`docker compose down`
+ 
+    ```
+    docker compose down
+    ```
 
 
 
 * When you take a compose application down the containers are removed, but not the volume. That needs to stay as it contains data you want to persist. You can verify this by listing out the volumes and looking for `Lab-3_db_data`
 
-	`docker volume ls `
+    ```
+    docker volume ls
+    ```
 
 
-    You can also view volumes in the Docker Desktop GUI from the Volumes entry in the left-hand menu.  
-
-
-
+* You can also view volumes in the Docker Desktop GUI from the Volumes entry in the left-hand menu.  
 
 * Restart the application
 
 
-```
-	docker compose up -d
-
-```
+    ```
+    docker compose up -d
+    ```
 
 
 
 * Verify the data persisted across the restart
 
-	`curl http://localhost:5000/api/entries`
-
-
+    ```
+    curl http://localhost:5000/api/entries
+    ```
 
 * You can remove all created resources by stopping the Compose application. 
 
