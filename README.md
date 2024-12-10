@@ -1,17 +1,13 @@
 # Docker 101 Workshop
 
-
 ## Lab 1:
-
 
 ## Containerize the demo application
 
-In this section you will clone the GitHub repository for our demo application, a Node/Express based guestbook API. As an optional exercise you can choose to run the app locally before containerizing it in the next section.  \
+In this section you will clone the GitHub repository for our demo application, a Node/Express based guestbook API. As an optional exercise you can choose to run the app locally before containerizing it in the next section.  
 
-
-
-
-* Open a terminal session / command prompt on your local computer. You can use Docker Desktop’s integrated terminal if you are on a newer version. 
+* Open a terminal session / command prompt on your local computer. You can use Docker Desktop’s integrated terminal if you are on a newer version.
+  
 * In the terminal session clone the lab repo: 
 
     ```
@@ -19,78 +15,56 @@ In this section you will clone the GitHub repository for our demo application, a
     ```
 
 
-* Change into the Lab-1 directory \
- \
-`cd 101-Workshop/Lab-1` \
-
-
+* Change into the Lab-1 directory
+  
+   ```
+   cd 101-Workshop/Lab-1` 
+   ```
+     
     This directory includes  a simple Node application that provides a guestbook API.
 
-* If you have Node and NPM installed on your local machine you can test the application to make sure it’s working.  \
- \
-If you do not have Node and NPM installed skip to the next section “***Build the application image***” \
+* If you have Node and NPM installed on your local machine you can test the application to make sure it’s working.  If you do not have Node and NPM installed skip to the next section “***Build the application image***” 
 
+* Otherwise use NPM to install the app dependencies and start the application: 
 
-    Otherwise use NPM to install the app dependencies and start the application: \
- \
-`npm install  \
-npm run`
+    ```
+    npm install  
+    npm run
+    ```
+* If you see a message “Backend is running on Port 5000” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
 
+    ```
+    curl http://localhost:5000/api/entries
+    ```
 
-    If you see a message “Backend is running on Port 5000” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
+* You should get back list of JSON objects that the application has prepopulated
 
-
-	`curl http://localhost:5000/api/entries`
-
-	You should get back list of JSON objects that the application has prepopulated
-
-
-    After you have tested your application, move back to the terminal window where the API was started and use ‘`ctrl-c`’ to stop the application.
+* After you have tested your application, move back to the terminal window where the API was started and use ‘`ctrl-c`’ to stop the application.
 
 
 ### Build the application image
 
-In this section you will build a Dockerfile for your application, and then test it to ensure it’s working.  \
- \
+In this section you will build a Dockerfile for your application, and then test it to ensure it’s working.  
+ 
 Feel free to consult the slides and/or other resources to complete this section. 
 
 
+* In your favorite text editor open the Dockerfile in the Lab-1 directory. This Dockerfile has been scaffolded out to include the commands necessary to run our application.  Your task is to complete each of the commands in the Dockefile. If you get stuck, look back at the slides, use Google, or your favorite LLM to see if you can find the solution. If none of that works, there is a solution shown under the `101-Workshop/Solutions/Lab-1 `directory you can copy and paste from. 
 
-* In your favorite text editor open the Dockerfile in the Lab-1 directory. This Dockerfile has been scaffolded out to include the commands necessary to run our application.  \
- \
-Your task is to complete each of the commands in the Dockefile. If you get stuck, look back at the slides, use Google, or your favorite LLM to see if you can find the solution. 
+* Once you have a Dockerfile you believe is working you will need to build and run it to test it out. Use the `docker build `command in a terminal window to create the container image.  The following command tells docker to build an image named ‘api’ and tag it as ‘v1’. 
 
-    If none of that works, there is a solution shown under the `101-Workshop/Solutions/Lab-1 `directory you can copy and paste from. 
-
-* Once you have a Dockerfile you believe is working you will need to build and run it to test it out. 
-
-    Use the `docker build `command in a terminal window to create the container image.  \
- \
-`docker build -t api:v1 .` \
- \
-This command tells docker to build an image named ‘api’ and tag it as ‘v1’. 
-
-
-    The first line of output should indicate that the build finished: \
- \
-`[+] Building 1.9s (9/9) FINISHED   `
-
-
+	`docker build -t api:v1 .` 
+ 
+* The first line of output should indicate that the build finished: 
+ 
+	`[+] Building 1.9s (9/9) FINISHED   `
 
 ### Run the application container
 
+* With your application image built, you can test it out by running the following command: 
 
-
-* With your application image built, you can test it out by running the following command: \
- \
-`docker run -d -p 5000:5000 --name api api:v1 \
- \
-`Let’s break down what the command is doing
-    * `docker run` starts the container
-    * `-d` runs the container in the background (detached)
-    * `-p` redirects traffic from port 5000 on the host to port 5000 on the container
-    * `—-name` names the container “api”
-    * `api:v1` is the name of the image you just built
+	`docker run -d -p 5000:5000 --name api api:v1`
+ 
 * If you issue the `docker ps` command you should see your running container. 
 
     ```
@@ -99,23 +73,20 @@ This command tells docker to build an image named ‘api’ and tag it as ‘v1�
     ```
 
 
-* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:5000 `because when you started the container you mapped port 5000 on the localhost to port 5000 on the container, so Docker is routing the request appropriately.  \
- \
-` curl http://localhost:5000/api/entries`
-
+* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:5000 `because when you started the container you mapped port 5000 on the localhost to port 5000 on the container, so Docker is routing the request appropriately.  
+  
+	` curl http://localhost:5000/api/entries`
 
 ### View resources in the Docker Desktop GUI
 
 You can view the resources you just created in the Docker Desktop GUI.
 
-
-
 * Open the Docker Desktop GUI and click “Images” from the left hand menu. Here you should see the image you created earlier. 
-* Click on the name of the image, and you can see image details. Including the commands used to build the image. This is great if you don’t have a Dockerfile to refer back to but are curious how an image was built.
 
-    Note you can get this same output from the Docker Desktop CLI by typing `docker history &lt;image name>`
+* Click on the name of the image, and you can see image details. Including the commands used to build the image. This is great if you don’t have a Dockerfile to refer back to but are curious how an image was built. Note you can get this same output from the Docker Desktop CLI by typing `docker history &lt;image name>`
 
 * Click on “Containers” from the left hand menu. Then click on the name of the API container you just started. Here you can view container logs and other details about the container. This is similar to using commands like `docker logs` and `docker inspect` from the CLI. 
+
 * Click on builds from the left hand menu and you can see your build history. If you click on the build you just executed, you’ll notice details on how the build ran. This is useful to see how efficiently you are using the cache and other factors that can affect build times. 
 
 
@@ -166,11 +137,9 @@ In this section our API has been modified to write to a database rather than sto
 
 ### Debug the API container
 
-The container has exited with an error. Can you sort out why this happened? \
- \
+The container has exited with an error. Can you sort out why this happened? 
+ 
 There are a couple of Docker commands you could use. The first is `docker logs` which will show you whatever the running container has written to `STDOUT` or `STDERR`. The other is `docker debug` which allows you to shell into a container, even one that has stopped. 
-
-
 
 * Start a debug session on the API container
 
@@ -328,13 +297,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 
 * Create a volume to hold the database data
 
-
-```
-docker volume create db_data
-
-```
-
-
+	`docker volume create db_data`
 
 * Restart the containers, this time using a volume w/ the database
 
@@ -368,16 +331,9 @@ docker volume create db_data
     curl -X POST http://localhost:5000/api/entries -H "Content-Type: application/json" -d "{\"name\": \"John Doe\", \"message\": \"This is a test entry!\"}"
     ```
 
-
 * Verify the data was written
-
-
-```
-curl http://localhost:5000/api/entries
-
-```
-
-
+  
+	`curl http://localhost:5000/api/entries`
 
 * Stop and restart the containers
 
@@ -407,13 +363,7 @@ curl http://localhost:5000/api/entries
 
 * Verify the data persisted across the restart this time
 
-
-```
-curl http://localhost:5000/api/entries
-
-```
-
-
+	`curl http://localhost:5000/api/entries`
 
 * Remove the application containers
 
@@ -422,9 +372,6 @@ curl http://localhost:5000/api/entries
     docker rm -f db
 
     ```
-
-
-
 ## Lab 3 
 
 
@@ -436,37 +383,21 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 
 * Move into the Lab 3 directory
 
-    ```
-    cd ../Lab-3
-    ```
-
-
+    `cd ../Lab-3`
 * Lab 3 only has the `index.js` and `package.json` files. You will use `docker init` to create the necessary Docker resources. 
 
-
-```
-docker init
-
-```
+	`docker init`
 
 
 
 * Follow the prompts and provide the following information
 
-    Language: `Node`
 
-
-    Version: `16`
-
-
-    Package manager: `NPM`
-
-
-    Command to start the app: `node index.js`
-
-
-    Port: `5000`
-
+    * Language: `Node`
+    * Version: `16`
+    * Package manager: `NPM`
+    * Command to start the app: `node index.js`
+    * Port: `5000`
 
     At this point docker init has created several files for you including a Dockerfile, Docker Compose file, a .`dockerignore` file, and a README. 
 
@@ -475,33 +406,25 @@ docker init
 	`docker compose up --build`
 
 
-    But, as we saw previously our API needs a database to run. Luckily `docker init` has done a lot of work on that front as well. 
-
-
+* But, as we saw previously our API needs a database to run. Luckily `docker init` has done a lot of work on that front as well. 
 
 * Use your favored text editor to open `compose.yam`l.` docker init` added the commands to not only start our application, but also included an option to use a database. This Compose file is 99% of the way done, but you do need to make a few quick edits to get it fully functional. 
-* After reviewing them, delete the comment lines in the  middle of the compose file that describes the various parts of the compose file. This would be all the comments “`ports`” and  “`depends_on`” sections \
 
-* Uncomment the remaining lines below the “`ports`” section  \
+* After reviewing them, delete the comment lines in the  middle of the compose file that describes the various parts of the compose file. This would be all the comments “`ports`” and  “`depends_on`” sections 
 
-* Add the following line under the “`depends_on`” section \
- \
-`secrets:`
+* Uncomment the remaining lines below the “`ports`” section  
 
-        ```
-          - db-password
-        ```
-
-
-
-    Your edited compose.yaml should look like this. Pay careful attention to the indentation. If it’s not correct, Docker Compose will fail.
-
-
-     \
-`services:`
-
+* Add the following line under the “`depends_on`” section 
 
     ```
+    secrets:
+      - db-password
+    ```
+    
+    Your edited compose.yaml should look like this. Pay careful attention to the indentation. If it’s not correct, Docker Compose will fail.
+
+    ```
+    services:  
       server:
         build:
           context: .
@@ -544,9 +467,7 @@ docker init
 
 * Save the file, and bring the application up again using Docker Compose. There is no need to rebuild the API container, but you do want the containers to start in the background hence the removal of `--build` and the inclusion of `-d`
 
-    ```
-    docker compose up -d
-    ```
+    `docker compose up -d`
 
 
 
@@ -577,7 +498,7 @@ docker init
 	`docker volume ls `
 
 
-    You can also view volumes in the Docker Desktop GUI from the Volumes entry in the left-hand menu.  \
+    You can also view volumes in the Docker Desktop GUI from the Volumes entry in the left-hand menu.  
 
 
 
