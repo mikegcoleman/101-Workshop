@@ -3,11 +3,9 @@ FROM node:16-alpine
 
 WORKDIR /usr/src/app
 
-COPY package.json package-logck.json ./ 
+COPY . . 
 
-RUN npm install 
-
-COPY index.js . 
+RUN npm install  
 
 EXPOSE 5000
 
