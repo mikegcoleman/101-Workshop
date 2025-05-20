@@ -39,7 +39,7 @@ In this section you will clone the GitHub repository for our demo application, a
 * If you see a message “Backend is running on Port 5001” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
 
     ```bash
-    curl http://localhost:5001/api/entries
+    curl http://localhost:$HOST_PORT/api/entries
     ```
 
 * You should get back list of JSON objects that the application has prepopulated
