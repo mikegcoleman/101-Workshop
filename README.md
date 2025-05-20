@@ -283,7 +283,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
       -e POSTGRES_DB=guestbook \
       -p 5432:5432 \
       --network guestbook \
-      Postgres
+      postgres
 
     docker run -d \
       --name api \
