@@ -275,7 +275,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
     docker rm -f db
 
     docker rm -f api
-
+        
     docker run -d \
       --name db \
       -e POSTGRES_USER=api \
@@ -284,6 +284,8 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
       -p 5432:5432 \
       --network guestbook \
       postgres
+
+    sleep 10
 
     docker run -d \
       --name api \
@@ -327,6 +329,8 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
       -v db_data:/var/lib/postgresql/data \
       postgres
 
+    sleep 10
+
     docker run -d \
       --name api \
       --network guestbook \
@@ -364,6 +368,8 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
       --network guestbook \
       -v db_data:/var/lib/postgresql/data \
       postgres
+
+    sleep 10
 
     docker run -d \
       --name api \
