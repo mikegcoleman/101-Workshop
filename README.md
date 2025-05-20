@@ -28,12 +28,12 @@ In this section you will clone the GitHub repository for our demo application, a
 * Otherwise use NPM to install the app dependencies and start the application: 
 
     ```bash
-    npm install && npm run
+    npm install && PORT=5001 npm run start 
     ```
 * If you see a message “Backend is running on Port 5000” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
 
     ```bash
-    curl http://localhost:5000/api/entries
+    curl http://localhost:5001/api/entries
     ```
 
 * You should get back list of JSON objects that the application has prepopulated
