@@ -252,7 +252,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 * Add a new entry
 
     ```
-    curl -X POST http://localhost:5000/api/entries -H "Content-Type: application/json" -d "{\"name\": \"John Doe\", \"message\": \"This is a test entry!\"}"
+    curl -X POST http://localhost:5000/api/entries -H "Content-Type: application/json" -d '{"name": "John Doe", "message": "This is a test entry!"}'
     ```
 
 
