@@ -23,12 +23,18 @@ In this section you will clone the GitHub repository for our demo application, a
      
     This directory includes  a simple Node application that provides a guestbook API.
 
+* The application we are using runs on port 5000 by default, however it could be that port is not available on your system. To accomodate we use an environment variable `HOST_PORT` to set the right port we will use on our local machine. If port 5000 is not availble on your machine, change the value below to one that works for you otherwise just copy and paste the command below as is. 
+
+  ```bash
+  HOST_PORT=5000
+  ```
+
 * If you have Node and NPM installed on your local machine you can test the application to make sure it’s working.  If you do not have Node and NPM installed skip to the next section “***Build the application image***” 
 
 * Otherwise use NPM to install the app dependencies and start the application: 
 
     ```bash
-    npm install && PORT=5001 npm run start 
+    npm install && PORT=$HOST_PORT npm run start 
     ```
 * If you see a message “Backend is running on Port 5001” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
 
@@ -65,7 +71,7 @@ Feel free to consult the slides and/or other resources to complete this section.
 * With your application image built, you can test it out by running the following command: 
 
     ```
-    docker run -d -p 5000:5000 --name api api:v1
+    docker run -d -p $HOST_PORT:5000 --name api api:v1
     ```
  
 * If you issue the `docker ps` command you should see your running container. 
@@ -76,9 +82,9 @@ Feel free to consult the slides and/or other resources to complete this section.
     ```
 
 
-* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:5000 `because when you started the container you mapped port 5000 on the localhost to port 5000 on the container, so Docker is routing the request appropriately.  
+* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:$HOST_PORT `because when you started the container you mapped port 5000 on the localhost to port 5000 on the container, so Docker is routing the request appropriately.  
   
-	` curl http://localhost:5000/api/entries`
+	` curl http://localhost:$HOST_PORT/api/entries`
 
 ### View resources in the Docker Desktop GUI
 
@@ -125,7 +131,7 @@ In this section our API has been modified to write to a database rather than sto
     ```
     docker rm -f api
 
-    docker run -d -p 5000:5000 --name api api:v2
+    docker run -d -p $HOST_PORT:5000 --name api api:v2
     ```
 
 
@@ -233,7 +239,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
     docker run -d \
       --name api \
       --network guestbook \
-      -p 5000:5000 \
+      -p $HOST_PORT:5000 \
       -e DB_URL="postgresql://api:Pa$$w0rd@db:5432/guestbook" \
       api:v2
     ```
@@ -242,7 +248,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 * Verify the API is working 
 
     ```
-    curl http://localhost:5000/api/entries
+    curl http://localhost:$HOST_PORT/api/entries
     ```
 
 
@@ -252,14 +258,14 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 * Add a new entry
 
     ```
-    curl -X POST http://localhost:5000/api/entries -H "Content-Type: application/json" -d '{"name": "John Doe", "message": "This is a test entry!"}'
+    curl -X POST http://localhost:$HOST_PORT/api/entries -H "Content-Type: application/json" -d '{"name": "John Doe", "message": "This is a test entry!"}'
     ```
 
 
 * Verify the new record is in the database
 
     ```
-    curl http://localhost:5000/api/entries
+    curl http://localhost:$HOST_PORT/api/entries
     ```
 
 
@@ -282,7 +288,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
     docker run -d \
       --name api \
       --network guestbook \
-      -p 5000:5000 \
+      -p $HOST_PORT:5000 \
       -e DB_URL="postgresql://api:Pa$$w0rd@db:5432/guestbook" \
       api:v2
     ```
@@ -291,7 +297,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 * See if the added record is still there
 
     ```
-    curl http://localhost:5000/api/entries
+    curl http://localhost:$HOST_PORT/api/entries
     ```
 
 
@@ -324,7 +330,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
     docker run -d \
       --name api \
       --network guestbook \
-      -p 5000:5000 \
+      -p $HOST_PORT:5000 \
       -e DB_URL="postgresql://api:Pa$$w0rd@db:5432/guestbook" \
       api:v2
     ```
@@ -333,13 +339,13 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 * Add some data to the database
 
     ```
-    curl -X POST http://localhost:5000/api/entries -H "Content-Type: application/json" -d '{"name": "John Doe", "message": "This is a test entry!"}'
+    curl -X POST http://localhost:$HOST_PORT/api/entries -H "Content-Type: application/json" -d '{"name": "John Doe", "message": "This is a test entry!"}'
     ```
 
 * Verify the data was written
 
    ```
-   curl http://localhost:5000/api/entries
+   curl http://localhost:$HOST_PORT/api/entries
    ```
 
 * Stop and restart the containers
@@ -362,7 +368,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
     docker run -d \
       --name api \
       --network guestbook \
-      -p 5000:5000 \
+      -p $HOST_PORT:5000 \
       -e DB_URL="postgresql://api:Pa$$w0rd@db:5432/guestbook" \
       api:v2
     ```
@@ -371,7 +377,7 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
 * Verify the data persisted across the restart this time
 
    ```
-   curl http://localhost:5000/api/entries
+   curl http://localhost:$HOST_PORT/api/entries
    ```
 
 * Remove the application containers
@@ -493,14 +499,14 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 * Add an entry to the database
 
     ```
-    curl -X POST http://localhost:5000/api/entries -H "Content-Type: application/json" -d "{\"name\": \"John Doe\", \"message\": \"It works with compose!\"}"
+    curl -X POST http://localhost:$HOST_PORT/api/entries -H "Content-Type: application/json" -d "{\"name\": \"John Doe\", \"message\": \"It works with compose!\"}"
     ```
 
 
 * Verify the new entry was written to the database
 
     ```
-    curl http://localhost:5000/api/entries
+    curl http://localhost:$HOST_PORT/api/entries
     ```
 
 
@@ -533,7 +539,7 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 * Verify the data persisted across the restart
 
     ```
-    curl http://localhost:5000/api/entries
+    curl http://localhost:$HOST_PORT/api/entries
     ```
 
 * You can remove all created resources by stopping the Compose application. 
