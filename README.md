@@ -30,7 +30,7 @@ In this section you will clone the GitHub repository for our demo application, a
     ```bash
     npm install && PORT=5001 npm run start 
     ```
-* If you see a message “Backend is running on Port 5000” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
+* If you see a message “Backend is running on Port 5001” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
 
     ```bash
     curl http://localhost:5001/api/entries
@@ -86,7 +86,7 @@ You can view the resources you just created in the Docker Desktop GUI.
 
 * Open the Docker Desktop GUI and click “Images” from the left hand menu. Here you should see the image you created earlier. 
 
-* Click on the name of the image, and you can see image details. Including the commands used to build the image. This is great if you don’t have a Dockerfile to refer back to but are curious how an image was built. Note you can get this same output from the Docker Desktop CLI by typing `docker history &lt;image name>`
+* Click on the name of the image, and you can see image details. Including the commands used to build the image. This is great if you don’t have a Dockerfile to refer back to but are curious how an image was built. Note you can get this same output from the Docker Desktop CLI by typing `docker history <image name>`
 
 * Click on “Containers” from the left hand menu. Then click on the name of the API container you just started. Here you can view container logs and other details about the container. This is similar to using commands like `docker logs` and `docker inspect` from the CLI. 
 
