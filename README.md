@@ -553,5 +553,5 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 * You can remove all created resources by stopping the Compose application. 
 
     ```
-    docker compose down
+    docker compose down --volumes
     ```
