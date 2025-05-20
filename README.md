@@ -441,9 +441,9 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 
 * Use your favored text editor to open `compose.yam`l.` docker init` added the commands to not only start our application, but also included an option to use a database. This Compose file is 99% of the way done, but you do need to make a few quick edits to get it fully functional. 
 
-* After reviewing them, delete the comment lines in the  middle of the compose file that describes the various parts of the compose file. This would be all the comments “`ports`” and  “`depends_on`” sections 
+* After reviewing them, delete the comment lines in the  middle of the compose file that describes the various parts of the compose file. This would be all the comments between the “`ports`” and  “`depends_on`” sections 
 
-* Uncomment the remaining lines below the “`ports`” section  
+* Uncomment the remaining lines starting with the “`depends_on`” section all the way to the end of the file
 
 * Add the following line under the “`depends_on`” section 
 
@@ -507,7 +507,7 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 * Add an entry to the database
 
     ```
-    curl -X POST http://localhost:$HOST_PORT/api/entries -H "Content-Type: application/json" -d "{\"name\": \"John Doe\", \"message\": \"It works with compose!\"}"
+    curl -X POST http://localhost:$HOST_PORT/api/entries -H "Content-Type: application/json" -d '{\"name\": \"John Doe\", \"message\": \"It works with compose!\"}'
     ```
 
 
