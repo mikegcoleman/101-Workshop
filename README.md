@@ -386,11 +386,13 @@ Note that you can also run debug from inside the Docker Desktop GUI. On a contai
    curl http://localhost:$HOST_PORT/api/entries
    ```
 
-* Remove the application containers
+* Remove the application containers, network, and volume
 
     ```
     docker rm -f api
     docker rm -f db
+    docker volume rm db_data
+    docker network rm guestbook
 
     ```
 
