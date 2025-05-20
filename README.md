@@ -82,7 +82,7 @@ Feel free to consult the slides and/or other resources to complete this section.
     ```
 
 
-* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:$HOST_PORT `because when you started the container you mapped port 5000 on the localhost to port 5000 on the container, so Docker is routing the request appropriately.  
+* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:$HOST_PORT `because when you started the container you mapped your chosen port on the localhost to port 5000 on the container, so Docker is routing the request appropriately.  
   
 	` curl http://localhost:$HOST_PORT/api/entries`
 
