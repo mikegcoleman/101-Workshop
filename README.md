@@ -507,7 +507,7 @@ In the previous labs you did a lot of manual work to build an optimized Dockerfi
 * Add an entry to the database
 
     ```
-    curl -X POST http://localhost:$HOST_PORT/api/entries -H "Content-Type: application/json" -d '{\"name\": \"John Doe\", \"message\": \"It works with compose!\"}'
+    curl -X POST http://localhost:$HOST_PORT/api/entries -H "Content-Type: application/json" -d '{"name": "John Doe", "message": "This is a test entry!"}'
     ```
 
 
