@@ -18,7 +18,7 @@ In this section you will clone the GitHub repository for our demo application, a
 * Change into the Lab-1 directory
   
    ```bash
-   cd 101-Workshop/Lab-1` 
+   cd 101-Workshop/Lab-1
    ```
      
     This directory includes  a simple Node application that provides a guestbook API.
@@ -28,8 +28,7 @@ In this section you will clone the GitHub repository for our demo application, a
 * Otherwise use NPM to install the app dependencies and start the application: 
 
     ```bash
-    npm install  
-    npm run
+    npm install && npm run
     ```
 * If you see a message “Backend is running on Port 5000” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
 
