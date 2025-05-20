@@ -1,20 +1,20 @@
 # Use an official Node.js runtime as the base image
-FROM 
+FROM node:16-alpine
 
 # Set the working directory inside the container
-WORKDIR 
+WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json
-COPY 
+COPY package*.json ./
 
 # Install dependencies
-RUN 
+RUN npm install
 
 # Copy the rest of the application code
-COPY 
+COPY . .
 
 # Expose the port the app runs on
-EXPOSE 
+EXPOSE 5000
 
 # Specify the command to run the API server
-CMD ["", ""]
+CMD ["node", "index.js"]
