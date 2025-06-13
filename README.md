@@ -11,7 +11,7 @@ In this section you will clone the GitHub repository for our demo application, a
 * In the terminal session clone the lab repo: 
 
     ```bash
-    git clone https://github.com/mikegcoleman/101-Workshop.git
+    git clone -b csm https://github.com/mikegcoleman/101-Workshop.git
     ```
 
 
@@ -23,29 +23,16 @@ In this section you will clone the GitHub repository for our demo application, a
      
     This directory includes  a simple Node application that provides a guestbook API.
 
-* The application we are using runs on port 5000 by default, however it could be that port is not available on your system. To accomodate we use an environment variable `HOST_PORT` to set the right port we will use on our local machine. If port 5000 is not availble on your machine, change the value below to one that works for you otherwise just copy and paste the command below as is. 
+* **In the terminal** enter the command below. 5001 will be the port our application talks on. 
 
   ```bash
-  HOST_PORT=5000
+  HOST_PORT=5001
   ```
+* **In the terminal** type the following to start Visual Studio Code and open up the current directory (which should be *101-workshop*)
 
-* If you have Node and NPM installed on your local machine you can test the application to make sure it’s working.  If you do not have Node and NPM installed skip to the next section “***Build the application image***” 
-
-* Otherwise use NPM to install the app dependencies and start the application: 
-
-    ```bash
-    npm install && PORT=$HOST_PORT npm run start 
-    ```
-* If you see a message “Backend is running on Port 5001” the app is running. To test it you can ***open a second terminal window*** and issue a curl command against the API
-
-    ```bash
-    curl http://localhost:$HOST_PORT/api/entries
-    ```
-
-* You should get back list of JSON objects that the application has prepopulated
-
-* After you have tested your application, move back to the terminal window where the API was started and use ‘`ctrl-c`’ to stop the application.
-
+  ```bash
+  code .
+  ```
 
 ### Build the application image
 
@@ -54,7 +41,7 @@ In this section you will build a Dockerfile for your application, and then test 
 Feel free to consult the slides and/or other resources to complete this section. 
 
 
-* In your favorite text editor open the Dockerfile in the Lab-1 directory. This Dockerfile has been scaffolded out to include the commands necessary to run our application.  Your task is to complete each of the commands in the Dockefile. If you get stuck, look back at the slides, use Google, or your favorite LLM to see if you can find the solution. If none of that works, there is a solution shown under the `101-Workshop/Solutions/Lab-1 `directory you can copy and paste from. 
+* **In Visual Studio Code** open the Dockerfile in the **Lab-1 directory**. This Dockerfile has been scaffolded out to include the commands necessary to run our application.  Your task is to complete each of the commands in the Dockefile. If you get stuck, look back at the slides, use Google, or your favorite LLM to see if you can find the solution. If none of that works, there is a solution shown under the `101-Workshop/Solutions/Lab-1 `directory you can copy and paste from. 
 
 * Once you have a Dockerfile you believe is working you will need to build and run it to test it out. Use the `docker build `command in a terminal window to create the container image.  The following command tells docker to build an image named ‘api’ and tag it as ‘v1’. 
 
@@ -82,7 +69,7 @@ Feel free to consult the slides and/or other resources to complete this section.
     ```
 
 
-* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:$HOST_PORT `because when you started the container you mapped your chosen port on the localhost to port 5000 on the container, so Docker is routing the request appropriately.  
+* You can `curl` against the API to see its working. Notice you are running `curl` against` http://localhost:$HOST_PORT `because when you started the container you mapped your chosen port on the localhost to port 5000 on the container, so Docker is routing the request appropriately. Type the command below **In the terminal**
   
 	` curl http://localhost:$HOST_PORT/api/entries`
 
