@@ -1,6 +1,7 @@
 # Docker 101 Workshop
 
-##*[Slides Here](https://docs.google.com/presentation/d/1mYvE4jLb5xjZXzY3ksYOTcuI7Wf6E7ot-yT-ozlA20Q/edit?usp=sharing)*##
+##Materials**
+You can download the [slides here](https://docs.google.com/presentation/d/1mYvE4jLb5xjZXzY3ksYOTcuI7Wf6E7ot-yT-ozlA20Q/edit?usp=sharing)
 
 ## Lab 1:
 
